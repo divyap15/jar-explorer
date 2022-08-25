@@ -1,0 +1,19 @@
+pipeline {
+     agent any
+     tools {
+      maven "maven"
+      }
+      stages {
+      stage("BUILD stage") {
+	     steps {
+	          sh 'mvn clean package'
+	     }
+      }
+    stage('archive') {
+    steps {
+      archiveArtifacts artifacts: 'target/*.jar', followSymlinks: false
+    }
+  }
+  
+   }
+}
