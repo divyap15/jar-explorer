@@ -1,21 +1,24 @@
-pipeline {
-     agent any
-     tools {
-      maven "maven"
-      }
-      stages {
-      stage("BUILD stage") {
-	     steps {
-	          sh 'mvn clean package'
-	     }
-      }
-       stage ("RUN stage") {
-            step {
-    stage('archive') {
-    steps {
-      archiveArtifacts artifacts: 'target/*.jar', followSymlinks: false
-    }
-  }
-  
-   }
-}
+pipeline{
+      agent none 
+      stages{
+          stage ('BUILD')
+                 {
+                 agent {
+                      label 'label-J'
+                          }
+               steps {
+                
+               sh 'mkdir java_project'
+                           }
+                           }
+            stage ('DEPLOY')
+                   {
+                  agent {
+                  label 'label-J'
+                     }
+                  steps {
+                       sh 'echo "hi"'
+                        }
+                    }
+              }
+         }
